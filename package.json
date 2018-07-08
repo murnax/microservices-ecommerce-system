@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/murnax/node-kafka/issues"
   },
-  "homepage": "https://github.com/murnax/node-kafka#readme"
+  "homepage": "https://github.com/murnax/node-kafka#readme",
+  "dependencies": {
+    "kafka-node": "^2.6.1"
+  }
 }
