@@ -1,0 +1,19 @@
+{
+    "apps": [
+        {
+            "name": "producer",
+            "script": "./app.js",
+            "watch": true,
+            "env": {
+                "NODE_ENV": "development"
+            }
+        }
+        // {
+        //     "name": "consumer",
+        //     "script": "./consumerServer.js",
+        //     "env": {
+        //         "NODE_ENV": "development"
+        //     }
+        // }
+    ]
+}
