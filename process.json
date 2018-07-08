@@ -2,14 +2,17 @@
     "apps": [
         {
             "name": "producer",
-            "script": "./app.js",
-            "watch": true,
+            "script": "./producerDemo.js",
+            "watch": ["./"],
+            "ignore_watch" : ["node_modules"],
             "env": {
                 "NODE_ENV": "development"
-            }
+            },
+            "instances"  : 1,
+            "exec_mode"  : "cluster"
         }
         // {
-        //     "name": "consumer",
+        //     "name": "co  nsumer",
         //     "script": "./consumerServer.js",
         //     "env": {
         //         "NODE_ENV": "development"
