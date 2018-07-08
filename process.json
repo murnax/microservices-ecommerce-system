@@ -10,13 +10,17 @@
             },
             "instances"  : 1,
             "exec_mode"  : "cluster"
+        },
+        {
+            "name": "consumer",
+            "script": "./consumerDemo.js",
+            "watch": ["./"],
+            "ignore_watch" : ["node_modules", ".git", ".sonarlint"],
+            "env": {
+                "NODE_ENV": "development"
+            },
+            "instances"  : 1,
+            "exec_mode"  : "cluster"
         }
-        // {
-        //     "name": "co  nsumer",
-        //     "script": "./consumerServer.js",
-        //     "env": {
-        //         "NODE_ENV": "development"
-        //     }
-        // }
     ]
 }
