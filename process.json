@@ -1,9 +1,9 @@
 {
     "apps": [
         {
-            "name": "producer",
-            "script": "./producerDemo.js",
-            "watch": ["./"],
+            "name": "Producer A",
+            "script": "./producerServiceA/index.js",
+            "watch": ["./producerServiceA"],
             "ignore_watch" : ["node_modules", ".git", ".sonarlint"],
             "env": {
                 "NODE_ENV": "development"
@@ -12,9 +12,9 @@
             "exec_mode"  : "cluster"
         },
         {
-            "name": "consumer",
-            "script": "./consumerDemo.js",
-            "watch": ["./"],
+            "name": "Consumer A",
+            "script": "./consumerServiceA/index.js",
+            "watch": ["./consumerServiceA"],
             "ignore_watch" : ["node_modules", ".git", ".sonarlint"],
             "env": {
                 "NODE_ENV": "development"

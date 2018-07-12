@@ -11,8 +11,8 @@ var kafka = require('kafka-node'),
         }
     );
     client.connect();
-    // console.log(client);
-
+    console.log(client);
+    
     client.on('ready', function (err){
         console.log('client ready', err);
     });

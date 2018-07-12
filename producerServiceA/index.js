@@ -13,7 +13,7 @@ try {
     const payloads = [
         { topic, messages: 'okay now?', partition: 0 }
     ]
-
+    console.log('ok')
     client.on('ready', function (){
         console.log('client ready');
     })  
@@ -36,3 +36,4 @@ try {
 } catch(error) {
     console.log(error);
 }
+
