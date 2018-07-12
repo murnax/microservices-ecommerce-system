@@ -21,6 +21,17 @@
             },
             "instances"  : 1,
             "exec_mode"  : "cluster"
+        },
+        {
+            "name": "Consumer B",
+            "script": "./consumerServiceB/index.js",
+            "watch": ["./consumerServiceB"],
+            "ignore_watch" : ["node_modules", ".git", ".sonarlint"],
+            "env": {
+                "NODE_ENV": "development"
+            },
+            "instances"  : 1,
+            "exec_mode"  : "cluster"
         }
     ]
 }

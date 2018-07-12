@@ -11,9 +11,8 @@ try {
     const producer = new Producer(client);
     const topic = 'test_topic' 
     const payloads = [
-        { topic, messages: 'okay now?', partition: 0 }
+        { topic, messages: 'What you want to learn more?', partition: 0 }
     ]
-    console.log('ok')
     client.on('ready', function (){
         console.log('client ready');
     })  

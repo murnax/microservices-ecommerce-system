@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/murnax/node-kafka#readme",
   "dependencies": {
+    "express": "^4.16.3",
     "kafka-node": "^2.6.1"
   }
 }
