@@ -2,7 +2,7 @@
     "apps": [
         {
             "name": "Producer A",
-            "script": "./producerServiceA/index.js",
+            "script": "./producerServiceA/app.js",
             "watch": ["./producerServiceA"],
             "ignore_watch" : ["node_modules", ".git", ".sonarlint"],
             "env": {
