@@ -1,9 +1,9 @@
 {
     "apps": [
         {
-            "name": "Producer A",
-            "script": "./producerServiceA/app.js",
-            "watch": ["./producerServiceA"],
+            "name": "Ordering Service",
+            "script": "./orderingService/app.js",
+            "watch": ["./orderingService"],
             "ignore_watch" : ["node_modules", ".git", ".sonarlint"],
             "env": {
                 "NODE_ENV": "development"
@@ -12,9 +12,9 @@
             "exec_mode"  : "cluster"
         },
         {
-            "name": "Consumer A",
-            "script": "./consumerServiceA/index.js",
-            "watch": ["./consumerServiceA"],
+            "name": "Shipment Service",
+            "script": "./shipmentService/index.js",
+            "watch": ["./shipmentService"],
             "ignore_watch" : ["node_modules", ".git", ".sonarlint"],
             "env": {
                 "NODE_ENV": "development"
@@ -23,9 +23,9 @@
             "exec_mode"  : "cluster"
         },
         {
-            "name": "Consumer B",
-            "script": "./consumerServiceB/index.js",
-            "watch": ["./consumerServiceB"],
+            "name": "Notification Service",
+            "script": "./notificationService/index.js",
+            "watch": ["./notificationService"],
             "ignore_watch" : ["node_modules", ".git", ".sonarlint"],
             "env": {
                 "NODE_ENV": "development"

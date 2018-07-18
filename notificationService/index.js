@@ -4,7 +4,7 @@ var kafka = require('kafka-node'),
     consumer = new Consumer(
         client,
         [
-            { topic: 'test_topic', partition: 0 }
+            { topic: 'OrderPlaced', partition: 0 }
         ],
         {
             autoCommit: false
@@ -21,7 +21,11 @@ var kafka = require('kafka-node'),
     });
 
 consumer.on('message', function (message) {
-    console.log(message);
+    const eventName = message.topic;
+    const eventPayload = JSON.parse(message.value);
+
+    console.log('send notification');
+    console.log(eventPayload);
 });
 
 consumer.on('error', function (err){

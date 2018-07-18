@@ -11,13 +11,22 @@ const app = express();
 
 app.post('/orders', (req, res) => {
 
-    const event = {
-        type: 'OrderPlaced',
+    // Order model should be created and returned from ordering application service
+    const order = {
         customerId: 1,
         lineItems: [
             { productId: 3, quantity: 5 },
             { productId: 7, quantity: 3 }
-        ]
+        ],
+        subTotal: 540,
+        currency: 'baht',
+        status: 1,
+        shippingAddress: 'somewhere on earth'
+    };
+    
+    const event = {
+        type: 'OrderPlaced',
+        ...order
     };
 
     const kafkaPayload = [{
