@@ -23,7 +23,7 @@ app.post('/orders', (req, res) => {
         status: 1,
         shippingAddress: 'somewhere on earth'
     };
-    
+
     const event = {
         type: 'OrderPlaced',
         ...order
@@ -33,12 +33,33 @@ app.post('/orders', (req, res) => {
         topic: event.type,
         messages: JSON.stringify(event)
     }];
-    producer.send(kafkaPayload, function(err, data) {
+    producer.send(kafkaPayload, (err, data) => {
         console.log('err', err);
         console.log('data', data);
     });
 
     res.json('how are you?');
+});
+
+app.get('/orders', (req, res) => {
+    const event = {
+        type: 'OrderListed',
+        userId: 3,
+    };
+
+    const kafkaPayload = [{
+        topic: event.type,
+        messages: JSON.stringify(event)
+    }];
+    producer.send(kafkaPayload, (err, data) => {
+        console.log('err', err);
+        console.log('data', data);
+    });
+
+    res.json({
+        total: 0,
+        data: []
+    });
 });
 
 app.listen(3001, () => {
