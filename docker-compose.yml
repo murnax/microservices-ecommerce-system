@@ -1,22 +1,26 @@
-version: '2'
+version: '3'
 services:
-  app:
-    build: .
-    ports:
-      - "3001:3001"
-    volumes:
-      - .:/app
-      - ./node_modules:/app/node_modules
-    command: pm2 --no-daemon start process.json
-    
-  kafka:
-    image: landoop/fast-data-dev
-    ports:
-      - "2181:2181" # ZK
-      - "3030:3030" # UI
-      - "8081:8081" 
-      - "8082:8082"
-      - "8083:8083"
-      - "9092:9092" # Broker
-    environment:
-      ADV_HOST: 'kafka'
+  # app:
+  #   build: .
+  #   ports:
+  #     - "3001:3001"
+  #   volumes:
+  #     - .:/app
+  #     - ./node_modules:/app/node_modules
+  #   command: pm2 --no-daemon start process.json
+
+  shipment:
+    build: ./shipmentService
+    command: ls -la
+
+  # kafka:
+  #   image: landoop/fast-data-dev
+  #   ports:
+  #     - "2181:2181" # ZK
+  #     - "3030:3030" # UI
+  #     - "8081:8081" 
+  #     - "8082:8082"
+  #     - "8083:8083"
+  #     - "9092:9092" # Broker
+  #   environment:
+  #     ADV_HOST: 'kafka'
