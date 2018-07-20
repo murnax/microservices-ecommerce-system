@@ -60,6 +60,8 @@ app.post('/orders/:orderId/paid', (req, res) => {
     producer.send(payload, (err, data) => {
         console.log('sent event');
     });
+
+    res.json('ok');
 });
 
 app.get('/orders', (req, res) => {
