@@ -8,6 +8,9 @@ const producer = new kafka.Producer(client);
 const express = require('express');
 const app = express();
 
+app.get('/products', (req, res) => {
+    res.json('ok');
+});
 
 app.post('/orders', (req, res) => {
 
