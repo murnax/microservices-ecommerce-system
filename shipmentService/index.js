@@ -4,7 +4,7 @@ var kafka = require('kafka-node'),
     consumer = new Consumer(
         client,
         [
-            { topic: 'OrderPlaced', partition: 0 }
+            { topic: 'ordering', partition: 0 }
         ],
         {
             autoCommit: false

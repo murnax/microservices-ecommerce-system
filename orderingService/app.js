@@ -13,6 +13,7 @@ app.post('/orders', (req, res) => {
 
     // Order model should be created and returned from ordering application service
     const order = {
+        orderId: 487,
         customerId: 1,
         lineItems: [
             { productId: 3, quantity: 5 },
@@ -25,20 +26,40 @@ app.post('/orders', (req, res) => {
     };
 
     const event = {
-        type: 'OrderPlaced',
+        event: 'ordering',
+        type: 'order_placed',
         ...order
     };
 
-    const kafkaPayload = [{
-        topic: event.type,
+    const payload = [{
+        topic: event.event,
+        key: order.orderId,
         messages: JSON.stringify(event)
     }];
-    producer.send(kafkaPayload, (err, data) => {
-        console.log('err', err);
-        console.log('data', data);
+    producer.send(payload, (err, data) => {
+        console.log('sent event');
     });
 
     res.json('how are you?');
+});
+
+app.post('/orders/:orderId/paid', (req, res) => {
+    const { orderId } = req.params;
+
+    const event = {
+        event: 'ordering',
+        type: 'order_paid',
+        orderId
+    };
+
+    const payload = [{
+        topic: event.event,
+        key: orderId,
+        messages: JSON.stringify(event)
+    }];
+    producer.send(payload, (err, data) => {
+        console.log('sent event');
+    });
 });
 
 app.get('/orders', (req, res) => {
@@ -47,11 +68,11 @@ app.get('/orders', (req, res) => {
         userId: 3,
     };
 
-    const kafkaPayload = [{
+    const payload = [{
         topic: event.type,
         messages: JSON.stringify(event)
     }];
-    producer.send(kafkaPayload, (err, data) => {
+    producer.send(payload, (err, data) => {
         console.log('err', err);
         console.log('data', data);
     });
