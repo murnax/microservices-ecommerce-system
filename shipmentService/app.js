@@ -21,13 +21,17 @@ var kafka = require('kafka-node'),
     });
 
 consumer.on('message', function (message) {
-    const eventName = message.topic;
     const eventPayload = JSON.parse(message.value);
+    console.log(eventPayload.type);
+    if (eventPayload.type !== 'order_paid') {
+        return;
+    }
 
     console.log('issue an order shipment');
     console.log(eventPayload);
 });
 
 consumer.on('error', function (err){
+
     console.log('consumer error', err);
 });
