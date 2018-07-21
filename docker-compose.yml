@@ -9,7 +9,7 @@ services:
     volumes:
       - ./orderingService:/app
       - ./orderingService/node_modules:/app/node_modules
-    command: pm2 --no-daemon start process.json
+    command: sh -c "mkdir -p dist && touch ./dist/app.js && nohup tsc -w && pm2 --no-daemon start process.json"
 
   shipment:
     build: ./shipmentService
