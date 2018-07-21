@@ -12,6 +12,8 @@ app.get('/products', (req, res) => {
     res.json('ok');
 });
 
+
+
 app.post('/orders', (req, res) => {
 
     // Order model should be created and returned from ordering application service
@@ -89,5 +91,5 @@ app.get('/orders', (req, res) => {
 });
 
 app.listen(3001, () => {
-    console.log('Rest service is now running on port 3001');
+    console.log('Rest service is now running on port 3005');
 });
