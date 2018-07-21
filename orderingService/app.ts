@@ -1,18 +1,17 @@
-const kafka = require('kafka-node');
+import * as kafka from 'kafka-node';
+import * as express from 'express';
+
 const client = new kafka.KafkaClient({
     kafkaHost: 'kafka:9092',
     requestTimeout: 2000
 });
 const producer = new kafka.Producer(client);
 
-const express = require('express');
 const app = express();
 
 app.get('/products', (req, res) => {
     res.json('ok');
 });
-
-
 
 app.post('/orders', (req, res) => {
 
