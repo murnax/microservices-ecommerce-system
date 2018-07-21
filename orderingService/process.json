@@ -2,8 +2,8 @@
     "apps": [
         {
             "name": "app",
-            "script": "./app.js",
-            "watch": ["./"],
+            "script": "./dist/app.js",
+            "watch": ["./dist/"],
             "ignore_watch" : ["node_modules"],
             "env": {
                 "NODE_ENV": "development"
