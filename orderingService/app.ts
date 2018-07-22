@@ -1,14 +1,19 @@
 import * as kafka from 'kafka-node';
 import * as express from 'express';
 
-const client = new kafka.KafkaClient({
-    kafkaHost: 'kafka:9092',
-    requestTimeout: 2000
-});
+const client = new kafka.KafkaClient({ kafkaHost: 'kafka:9092' });
 const producer = new kafka.Producer(client);
+const consumer = new kafka.Consumer(
+    client,
+    [
+        { topic: 'shipment', partition: 0 }
+    ],
+    {
+        autoCommit: false
+    }
+);
 
 const app = express();
-
 app.get('/products', (req, res) => {
     res.json('ok');
 });
@@ -91,4 +96,13 @@ app.get('/orders', (req, res) => {
 
 app.listen(3001, () => {
     console.log('Rest service is now running on port 3005');
+});
+
+consumer.on('message', (message) => {
+    const eventPayload = JSON.parse(message.value);
+    if (eventPayload.type !== 'shipment_created') {
+        return;
+    }
+
+    console.log('update order status to shipping');
 });
