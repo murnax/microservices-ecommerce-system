@@ -9,7 +9,8 @@ const consumer = new kafka.Consumer(
         { topic: 'shipment', partition: 0 }
     ],
     {
-        autoCommit: false
+        groupId: 'orderService',
+        autoCommit: true
     }
 );
 
@@ -36,7 +37,7 @@ app.post('/orders', (req, res) => {
 
     const event = {
         event: 'ordering',
-        type: 'order_placed',
+        type: 'order_created',
         ...order
     };
 
@@ -46,7 +47,7 @@ app.post('/orders', (req, res) => {
         messages: JSON.stringify(event)
     }];
     producer.send(payload, (err, data) => {
-        console.log('sent event');
+        console.log('sent ordering.order_created event');
     });
 
     res.json('how are you?');
@@ -67,7 +68,7 @@ app.post('/orders/:orderId/paid', (req, res) => {
         messages: JSON.stringify(event)
     }];
     producer.send(payload, (err, data) => {
-        console.log('sent event');
+        console.log('sent ordering.order_paid event');
     });
 
     res.json('ok');
@@ -94,8 +95,8 @@ app.get('/orders', (req, res) => {
     });
 });
 
-app.listen(3001, () => {
-    console.log('Rest service is now running on port 3001.');
+app.listen(process.env.API_PORT, () => {
+    console.log(`Rest service is now running on port ${process.env.API_PORT}`);
 });
 
 consumer.on('message', (message) => {
