@@ -95,11 +95,11 @@ app.get('/orders', (req, res) => {
 });
 
 app.listen(3001, () => {
-    console.log('Rest service is now running on port 3005');
+    console.log('Rest service is now running on port 3001');
 });
 
 consumer.on('message', (message) => {
-    const eventPayload = JSON.parse(message.value);
+    const eventPayload = JSON.parse(message.value.toString());
     if (eventPayload.type !== 'shipment_created') {
         return;
     }

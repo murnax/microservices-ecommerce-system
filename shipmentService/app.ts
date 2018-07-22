@@ -15,15 +15,15 @@ const consumer = new kafka.Consumer(
 client.connect();
 
 client.on('ready', function (err) {
-    console.log('client ready');
+    console.log('client ready.asdf');
 });
 
 client.on('error', function (err) {
-    console.log('client error', err);
+    console.log('clieasfnt error', err);
 });
 
 consumer.on('message', message => {
-    const eventPayload = JSON.parse(message.value);
+    const eventPayload = JSON.parse(message.value.toString());
     if (eventPayload.type !== 'order_paid') {
         return;
     }
@@ -34,6 +34,7 @@ consumer.on('message', message => {
             487
         ]
     };
+
 
     const event = {
         event: 'shipment',

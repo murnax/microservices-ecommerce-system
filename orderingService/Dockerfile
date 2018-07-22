@@ -9,6 +9,5 @@ ADD ./package.json .
 ADD ./yarn.lock .
 RUN yarn
 
-ADD ./start.sh .
-RUN ["chmod", "+x", "start.sh"]
-
+ADD ./entrypoint.sh .
+RUN chmod +x /app/entrypoint.sh
