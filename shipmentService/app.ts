@@ -15,7 +15,7 @@ const consumer = new kafka.Consumer(
 client.connect();
 
 client.on('ready', function (err) {
-    console.log('client ready.asdf');
+    console.log('client ready...');
 });
 
 client.on('error', function (err) {

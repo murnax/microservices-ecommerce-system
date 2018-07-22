@@ -95,7 +95,7 @@ app.get('/orders', (req, res) => {
 });
 
 app.listen(3001, () => {
-    console.log('Rest service is now running on port 3001');
+    console.log('Rest service is now running on port 3001.');
 });
 
 consumer.on('message', (message) => {
