@@ -1,6 +1,7 @@
 /node_modules
 
 /shipmentService/node_modules
+/shipmentService/dist
 
 /orderingService/node_modules
 /orderingService/dist
