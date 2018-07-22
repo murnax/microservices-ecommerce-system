@@ -22,7 +22,7 @@ client.on('error', function (err) {
     console.log('client error', err);
 });
 
-consumer.on('message', function (message) {
+consumer.on('message', message => {
     const eventPayload = JSON.parse(message.value);
     if (eventPayload.type !== 'order_paid') {
         return;
@@ -52,7 +52,6 @@ consumer.on('message', function (message) {
 });
 
 consumer.on('error', function (err) {
-
     console.log('consumer error', err);
 });
 
