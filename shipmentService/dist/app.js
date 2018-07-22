@@ -15,7 +15,7 @@ client.on('ready', function (err) {
 client.on('error', function (err) {
     console.log('client error', err);
 });
-consumer.on('message', function (message) {
+consumer.on('message', message => {
     const eventPayload = JSON.parse(message.value);
     if (eventPayload.type !== 'order_paid') {
         return;

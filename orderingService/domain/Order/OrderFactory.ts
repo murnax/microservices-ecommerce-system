@@ -6,7 +6,7 @@ export default class OrderFactory {
 
     }
 
-    create(orderCreatingRequest) {
-
+    create() : Order {
+        return;
     }
 }
