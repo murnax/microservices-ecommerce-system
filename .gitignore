@@ -2,6 +2,8 @@
 
 /shipmentService/node_modules
 /shipmentService/dist
+/shipmentService/nohup.out
 
 /orderingService/node_modules
 /orderingService/dist
+/orderingService/nohup.out
