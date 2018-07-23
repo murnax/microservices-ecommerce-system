@@ -10,6 +10,7 @@ Concepts & Patterns:
 - EDA : Event Driven Architecture
 - DDD : Domain Driven Design
 - CQRS : Command Query Responsibility Segregation
+- Integration Testing
 
 Tools:
 - Docker & Docker Compose
