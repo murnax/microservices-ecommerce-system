@@ -1,5 +1,7 @@
 ## Microservice-based E-Commerce System
 
+![stability-wip](https://img.shields.io/badge/stability-work_in_progress-lightgrey.svg)
+
 ### Goal
 
 The goal of this project is to give an example how to build E-Commerce system by using these kind of stuffs:
