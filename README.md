@@ -1,9 +1,34 @@
-## Kafka Node.js
+## Microservice-based E-Commerce System
 
 ### Goal
 
-The goal of this project is to give an overview of how to use Kafka as an event-driven platform for Node.js services
+The goal of this project is to give an example how to build E-Commerce system by using these kind of stuffs:
+
+Concepts & Patterns:
+
+- Microservices
+- EDA : Event Driven Architecture
+- DDD : Domain Driven Design
+- CQRS : Command Query Responsibility Segregation
+
+Tools:
+- Docker & Docker Compose
+- Kafka
+
+Languages:
+- Node.js (Typescript)
+- Golang
+
+### Project Structure
+
+In this system we derive system to these two (micro)services:
+
+- Ordering: from browsing product catalog, create an order, manage order's status, etc.
+- Shipment: once order's been created, they need to be managed and ship to the customer and that's responsibility for this service.
+
+*We gonna start with other these two services first and see what should be improve later*
 
 ### Prerequisites
 
-- [Docker](https://www.docker.com/) and use docker compose to manage multiple containers
+All you need is Docker with Docker Compose enabled.
+
