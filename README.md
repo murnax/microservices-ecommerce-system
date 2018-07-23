@@ -29,7 +29,7 @@ In this system we derive system to these two (micro)services:
 - Ordering: from browsing product catalog, create an order, manage order's status, etc.
 - Shipment: once order's been created, they need to be managed and ship to the customer and that's responsibility for this service.
 
-*We gonna start with other these two services first and see what should be improve later*
+*We gonna start with only these two services first and see what should be improved later*
 
 ### Prerequisites
 
