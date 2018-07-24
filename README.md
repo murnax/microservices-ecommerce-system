@@ -24,12 +24,17 @@ Languages:
 
 ### Project Structure
 
+<p align="center">
+<a href="./docs/images/services diagram.jpg" target="_blank">  
+  <img src="./docs/images/services diagram.jpg" width="550">
+</a>
+
 In this system we derive system to these two (micro)services:
 
-- Ordering: from browsing product catalog, create an order, manage order's status, etc.
-- Shipment: once order's been created, they need to be managed and ship to the customer and that's responsibility for this service.
-
-*We gonna start with only these two services first and see what should be improved later*
+- Authentication Service: authentication & authorization will be handled by this service.
+- Ordering Service: browsing product catalog, create an order, manage order's status, etc will be handled by this service.
+- Shipment Service: once order's been created, they need to be managed and ship to the customer and that's responsibility for this service.
+- Inventory Service: product inventory will be managed inside this service.
 
 ### Prerequisites
 
