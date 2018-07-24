@@ -1,5 +1,6 @@
 import * as kafka from 'kafka-node';
 import * as express from 'express';
+import OrderCommandHandler from 'commandHandler/OrderCommandHandler';
 
 const client = new kafka.KafkaClient({ kafkaHost: 'kafka:9092' });
 const producer = new kafka.Producer(client);
@@ -20,6 +21,19 @@ app.get('/products', (req, res) => {
 });
 
 app.post('/orders', (req, res) => {
+
+    const command = {
+        name: 'createOrder',
+        userId: 1,
+        payload: {
+            lineItems: [
+                { productId: 3, quantity: 5 },
+                { productId: 7, quantity: 3 }
+            ]
+        }
+    };
+
+    const response = new OrderCommandHandler().createOrder(command);
 
     // Order model should be created and returned from ordering application service
     const order = {
