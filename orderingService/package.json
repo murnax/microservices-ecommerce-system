@@ -18,10 +18,15 @@
   "homepage": "https://github.com/murnax/node-kafka#readme",
   "dependencies": {
     "express": "^4.16.3",
-    "kafka-node": "^2.6.1"
+    "kafka-node": "^2.6.1",
+    "module-alias": "^2.1.0"
   },
   "devDependencies": {
     "@types/express": "^4.16.0",
     "@types/kafka-node": "^2.0.6"
+  },
+  "_moduleAliases": {
+    "@root": ".",
+    "@repository": "repository"
   }
 }

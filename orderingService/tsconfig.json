@@ -3,7 +3,8 @@
     "moduleResolution": "node",
     "baseUrl": "./",
     "paths": {
-      "@core/*" : ["./core/*"]
+      "@root/*": ["*"],
+      "@repository/*" : ["repository/*"]
     },
     "target": "es6",
     "module": "commonjs",
