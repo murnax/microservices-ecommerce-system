@@ -1,6 +1,16 @@
+require('module-alias/register');
+
 import * as kafka from 'kafka-node';
 import * as express from 'express';
-import OrderCommandHandler from 'commandHandler/OrderCommandHandler';
+import OrderCommandHandler from '@root/commandHandler/OrderCommandHandler';
+import OrderRepository from '@root/repository/OrderRepository';
+import CustomerRepository from '@root/repository/CustomerRepository';
+import ProductRepository from '@root/repository/ProductRepository';
+
+const orderRepository = new OrderRepository();
+const customerRepository = new CustomerRepository();
+const productRepository = new ProductRepository();
+const orderCommandHandler = new OrderCommandHandler(orderRepository, customerRepository, productRepository);
 
 const client = new kafka.KafkaClient({ kafkaHost: 'kafka:9092' });
 const producer = new kafka.Producer(client);
@@ -33,7 +43,7 @@ app.post('/orders', (req, res) => {
         }
     };
 
-    const response = new OrderCommandHandler().createOrder(command);
+    const response = orderCommandHandler.createOrder(command);
 
     // Order model should be created and returned from ordering application service
     const order = {
