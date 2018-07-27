@@ -30,34 +30,20 @@ app.get('/products', (req, res) => {
     res.json('ok');
 });
 
-app.post('/orders', (req, res) => {
+app.post('/orders', async (req, res) => {
 
     const command = {
         name: 'createOrder',
         userId: 1,
         payload: {
-            lineItems: [
+            orderList: [
                 { productId: 3, quantity: 5 },
                 { productId: 7, quantity: 3 }
             ]
         }
     };
 
-    const response = orderCommandHandler.createOrder(command);
-
-    // Order model should be created and returned from ordering application service
-    const order = {
-        orderId: 487,
-        customerId: 1,
-        lineItems: [
-            { productId: 3, quantity: 5 },
-            { productId: 7, quantity: 3 }
-        ],
-        subTotal: 540,
-        currency: 'baht',
-        status: 1,
-        shippingAddress: 'somewhere on earth'
-    };
+    const order = await orderCommandHandler.createOrder(command);
 
     const event = {
         event: 'ordering',
