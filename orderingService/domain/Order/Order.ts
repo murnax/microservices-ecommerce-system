@@ -5,8 +5,6 @@ import CustomerContactInfo from './CustomerContactInfo';
 
 export default class Order {
     orderId: OrderId;
-    orderNumber: String;
-    customer: Customer;
     customerContactInfo: CustomerContactInfo;
     lineItems: Array<LineItem>;
     status: Number;
@@ -24,9 +22,9 @@ export default class Order {
         this.deliveryAddress = deliveryAddress;
     }
 
-    // toJSON() {
-    //     let output = Object.assign({}, this);
-    //     output.orderId = output.orderId.id;
-    //     return output;
-    // }
+    toJSON() {
+        let output = Object.assign({}, this);
+        output.orderId = output.orderId.id;
+        return output;
+    }
 }
