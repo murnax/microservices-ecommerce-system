@@ -23,7 +23,7 @@ export default class Order {
     }
 
     toJSON() {
-        let output = Object.assign({}, this);
+        let output: any = Object.assign({}, this);
         output.orderId = output.orderId.id;
         return output;
     }
