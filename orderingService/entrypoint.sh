@@ -4,6 +4,6 @@ mkdir -p dist
 
 touch ./dist/app.js
 
-pm2 --no-daemon start process.json
-
 nohup tsc -w &
+
+pm2 --no-daemon start process.json
