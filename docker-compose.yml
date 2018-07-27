@@ -36,8 +36,8 @@ services:
   #   environment:
   #     ADV_HOST: 'kafka'
 
-  # mongo:
-  #   image: mvertes/alpine-mongo:3.2.1
-  #   ports:
-  #     - "27017"
-  #   command: ["mongod"]
+  mongo:
+    image: mvertes/alpine-mongo:3.2.1
+    ports:
+      - "27017"
+    command: ["mongod"]

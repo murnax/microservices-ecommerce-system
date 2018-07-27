@@ -45,7 +45,6 @@ app.post('/orders', async (req, res) => {
     };
 
     const order = await orderCommandHandler.createOrder(command);
-    console.log(order);
 
     const event = {
         event: 'ordering',

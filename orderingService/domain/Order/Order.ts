@@ -12,9 +12,9 @@ export default class Order {
     status: Number;
     subTotal: Number;
     totalQuantity: Number;
-    deliveryAddress: String;
+    deliveryAddress: any;
     
-    constructor(orderId: OrderId, customerContactInfo: CustomerContactInfo, lineItems: Array<LineItem>, status: Number, deliveryAddress: String) {
+    constructor(orderId: OrderId, customerContactInfo: CustomerContactInfo, lineItems: Array<LineItem>, status: Number, deliveryAddress: any) {
         this.orderId = orderId;
         this.customerContactInfo = customerContactInfo;
         this.lineItems = lineItems;
