@@ -4,7 +4,9 @@ import Customer from "domain/Customer/Customer";
 
 export default class CustomerRepository implements ICustomerRepository {
     
-    getById(customerId: CustomerId) : Customer {
-        return;
+    getById(customerId: CustomerId) : any {
+        return {
+            userId: 1
+        };
     }
 }
