@@ -19,9 +19,9 @@ export default class OrderCommandHandlers {
         this.productRepository = productRepository;
     }
 
-    async createOrder(command: any) {
+    async createOrder({ payload }: any) {
         try {
-            const { userId, payload: { orderList } } = command;
+            const { userId, orderList, deliveryAddress } = payload;
             const customer = await this.customerRepository.getById(userId);
             const products = await this.productRepository.getProductsByIDs(orderList.map((item: any) => item.productId));
             
@@ -30,9 +30,18 @@ export default class OrderCommandHandlers {
             });
 
             const orderId = new OrderId(uuid());
-            const order = new Order(orderId, userId, lineItems, OrderStatus.PENDING);
+            const order = new Order(orderId, userId, lineItems, OrderStatus.PENDING, deliveryAddress);
             this.orderRepository.create(order);
             return order;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async paidOrder(command: any) {
+        try {
+            const { userId, payload: { orderId } } = command;
+            
         } catch (error) {
             console.log(error);
         }
