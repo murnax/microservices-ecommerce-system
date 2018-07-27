@@ -46,7 +46,7 @@ client.on('ready', () => {
 });
 
 client.on('error', function (err) {
-    console.log('clieasfnt error', err);
+    console.log('client error', err);
 });
 
 consumer.on('message', message => {
