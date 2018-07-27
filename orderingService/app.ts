@@ -34,12 +34,13 @@ app.post('/orders', async (req, res) => {
 
     const command = {
         name: 'createOrder',
-        userId: 1,
         payload: {
+            userId: 1,
             orderList: [
                 { productId: 3, quantity: 5 },
                 { productId: 7, quantity: 3 }
-            ]
+            ],
+            deliveryAddress: "5/51 Sailom Condo, Phaholyothin Soi 8, Samsen N'ai, Phaya Thai, Bangkok, 10400, Thailand"
         }
     };
 
