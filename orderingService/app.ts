@@ -45,6 +45,7 @@ app.post('/orders', async (req, res) => {
     };
 
     const order = await orderCommandHandler.createOrder(command);
+    console.log(order);
 
     const event = {
         event: 'ordering',
@@ -52,16 +53,16 @@ app.post('/orders', async (req, res) => {
         ...order
     };
 
-    const payload = [{
-        topic: event.event,
-        key: order.orderId,
-        messages: JSON.stringify(event)
-    }];
-    producer.send(payload, (err, data) => {
-        console.log('sent ordering.order_created event');
-    });
+    // const payload = [{
+    //     topic: event.event,
+    //     key: order.orderId,
+    //     messages: JSON.stringify(event)
+    // }];
+    // producer.send(payload, (err, data) => {
+    //     console.log('sent ordering.order_created event');
+    // });
 
-    res.json('how are you?');
+    res.json(order);
 });
 
 app.post('/orders/:orderId/paid', (req, res) => {
