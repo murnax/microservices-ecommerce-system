@@ -2,6 +2,9 @@ require('module-alias/register');
 
 import * as kafka from 'kafka-node';
 import * as express from 'express';
+import * as mongoose from 'mongoose';
+mongoose.connect('mongodb://mongo/ordering');
+
 import OrderCommandHandler from '@root/commandHandler/OrderCommandHandler';
 import OrderRepository from '@root/repository/OrderRepository';
 import CustomerRepository from '@root/repository/CustomerRepository';
