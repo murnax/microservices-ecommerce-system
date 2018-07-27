@@ -24,9 +24,9 @@ export default class Order {
         this.deliveryAddress = deliveryAddress;
     }
 
-    toJSON() {
-        let output = Object.assign({}, this);
-        output.orderId = output.orderId.id;
-        return output;
-    }
+    // toJSON() {
+    //     let output = Object.assign({}, this);
+    //     output.orderId = output.orderId.id;
+    //     return output;
+    // }
 }
