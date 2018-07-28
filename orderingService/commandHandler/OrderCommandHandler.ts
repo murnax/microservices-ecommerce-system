@@ -21,37 +21,36 @@ export default class OrderCommandHandlers {
     }
 
     async createOrder({ payload }: any) {
-        try {
-            const { userId, orderList, deliveryAddress } = payload;
+        const { userId, orderList, deliveryAddress } = payload;
 
-            const customer = await this.customerRepository.getById(userId);
-            if (!customer) {
+        const customer = await this.customerRepository.getById(userId);
+        if (!customer) {
 
-            }
-
-            const products = await this.productRepository.getProductsByIDs(orderList.map((item: any) => item.productId));
-            const lineItems: Array<LineItem> = products.map((product: any, index: number) => {
-                return new LineItem(product.productId, orderList[index].quantity, product.unitPrice);
-            });
-
-            const fullname = `${customer.firstname} ${customer.lastname}`;
-            const customerContactInfo = new CustomerContactInfo(fullname, customer.email, customer.phoneNumber);
-
-            const orderId = new OrderId(uuid());
-            const order = new Order(orderId, customerContactInfo, lineItems, OrderStatus.PENDING, deliveryAddress);
-            this.orderRepository.create(order);
-            return order;
-        } catch (error) {
-            console.log(error);
         }
+
+        const products = await this.productRepository.getProductsByIDs(orderList.map((item: any) => item.productId));
+        const lineItems: Array<LineItem> = products.map((product: any, index: number) => {
+            return new LineItem(product.productId, orderList[index].quantity, product.unitPrice);
+        });
+
+        const fullname = `${customer.firstname} ${customer.lastname}`;
+        const customerContactInfo = new CustomerContactInfo(fullname, customer.email, customer.phoneNumber);
+
+        const orderId = new OrderId(uuid());
+        const order = new Order(orderId, customerContactInfo, lineItems, OrderStatus.PENDING, deliveryAddress);
+
+        order.calculate();
+
+        this.orderRepository.create(order);
+        return order;
     }
 
-    async paidOrder(command: any) {
-        try {
-            const { userId, payload: { orderId } } = command;
-            
-        } catch (error) {
-            console.log(error);
-        }
+    async payOrder(command: any) {
+        const { userId, payload: { orderId } } = command;
+        const order = await this.orderRepository.getById(orderId);
+
+        order.pay();
+
+        this.orderRepository.save(order);
     }
 }
