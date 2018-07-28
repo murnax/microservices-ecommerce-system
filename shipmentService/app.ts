@@ -51,11 +51,9 @@ client.on('error', function (err) {
 
 consumer.on('message', message => {
     const eventPayload = JSON.parse(message.value.toString());
-    if (eventPayload.type === 'order_created') {
-        console.log('save order into shipment service');
-        return;
-    } else if (eventPayload.type === 'order_paid') {
-        console.log('update order status to shippable');
+    if (eventPayload.type === 'order_paid') {
+        console.log('create order with status set to shippable');
+        console.log(eventPayload);
         return;
     }
 });

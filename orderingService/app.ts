@@ -55,35 +55,45 @@ app.post('/orders', async (req, res) => {
         ...order
     };
 
-    // const payload = [{
-    //     topic: event.event,
-    //     key: order.orderId,
-    //     messages: JSON.stringify(event)
-    // }];
-    // producer.send(payload, (err, data) => {
-    //     console.log('sent ordering.order_created event');
-    // });
+    const payload = [{
+        topic: event.event,
+        key: order.orderId,
+        messages: JSON.stringify(event)
+    }];
+    producer.send(payload, (err, data) => {
+        console.log('sent ordering.order_created event');
+    });
 
     res.json(order);
 });
 
-app.post('/orders/:orderId/paid', (req, res) => {
+app.post('/orders/:orderId/paid', async (req, res) => {
     const { orderId } = req.params;
 
-    const event = {
-        event: 'ordering',
-        type: 'order_paid',
-        orderId
+    const command = {
+        name: 'payOrder',
+        payload: {
+            userId: 1,
+            orderId: "5e46f8ba-cf9b-452b-9f58-5fcd96249ba5"
+        }
     };
 
-    const payload = [{
-        topic: event.event,
-        key: orderId,
-        messages: JSON.stringify(event)
-    }];
-    producer.send(payload, (err, data) => {
-        console.log('sent ordering.order_paid event');
-    });
+    await orderCommandHandler.payOrder(command);
+
+    // const event = {
+    //     event: 'ordering',
+    //     type: 'order_paid',
+    //     orderId
+    // };
+
+    // const payload = [{
+    //     topic: event.event,
+    //     key: orderId,
+    //     messages: JSON.stringify(event)
+    // }];
+    // producer.send(payload, (err, data) => {
+    //     console.log('sent ordering.order_paid event');
+    // });
 
     res.json('ok');
 });
