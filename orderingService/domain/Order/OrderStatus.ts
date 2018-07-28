@@ -1,6 +1,7 @@
 export default class OrderStatus {
-    static readonly PENDING: number = 1;
-    static readonly COMPLETED: number = 2;
-    static readonly CANCELLED: number = 3;
-    static readonly DECLINED: number = 4;
+    static readonly PENDING: Number = 1;
+    static readonly PAID: Number = 2;
+    static readonly COMPLETED: Number = 3;
+    static readonly CANCELLED: Number = 4;
+    static readonly DECLINED: Number = 5;
 }
