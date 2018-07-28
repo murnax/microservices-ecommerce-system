@@ -1,9 +1,10 @@
 import mongoose = require('mongoose');
 const Mixed = mongoose.Schema.Types.Mixed;
 
-import IOrderRepository from "domain/Order/IOrderRepository";
-import Order from "domain/Order/Order";
-import OrderId from "domain/Order/OrderId";
+import IOrderRepository from "@root/domain/Order/IOrderRepository";
+import Order from "@root/domain/Order/Order";
+import OrderId from "@root/domain/Order/OrderId";
+import OrderFactory from '@root/domain/Order/OrderFactory';
 
 const OrderSchema = new mongoose.Schema({
     orderId: String,
@@ -18,19 +19,20 @@ const OrderModel = mongoose.model('Order', OrderSchema);
 
 export default class OrderRepository implements IOrderRepository {
     
-    getById(orderId: OrderId) : Order {
-        return;
+    async getById(orderId: OrderId) : Promise<Order> {
+        return OrderFactory.reconstitute(
+            await OrderModel.findOne({ orderId })
+        );
     }
 
     create(order: Order) : void {
-        try {
-            console.log('save order to persistent storage.');
-            new OrderModel(order.toJSON()).save()
-                .then(data => {
-                    console.log(data);
-                });
-        } catch(error) {
-            console.log(error);
-        }
+        new OrderModel(order.toJSON()).save();
+    }
+
+    save(order: Order) : void {
+        OrderModel.findOneAndUpdate(
+            { orderId: order.orderId.toString() }, 
+            { $set: order.toJSON() }
+        );
     }
 }
