@@ -4,4 +4,8 @@ export default class OrderId {
     constructor(id: String) {
         this.id = id;
     }
+
+    toString() {
+        return this.id;
+    }
 }

@@ -24,16 +24,34 @@ export default class Order {
         this.totalQuantity = totalQuantity;
     }
 
+    addLineItem(lineItem: LineItem) {
+        this.lineItems = this.lineItems || [];
+        this.lineItems.push(lineItem);
+    }
+
     calculate() {
+        if (!this.lineItems.length) {
+            throw new Error('there is no line items in this order');
+        }
+
         this.subTotal = this.lineItems.reduce((a, b) => { return a + b.total; }, 0);
         this.totalQuantity = this.lineItems.reduce((a, b) => { return a + b.quantity; }, 0);
     }
 
     pay() {
         if (this.status !== OrderStatus.PENDING) {
-            // throw error
+            throw new Error('order is not in pending status');
         }
+
         this.status = OrderStatus.PAID;
+    }
+
+    confirm() {
+        if (this.status !== OrderStatus.PENDING && this.status !== OrderStatus.PAID) {
+            throw new Error('order status is not pending or paid');
+        }
+
+        this.status = OrderStatus.CONFIRMED;
     }
 
     toJSON() {

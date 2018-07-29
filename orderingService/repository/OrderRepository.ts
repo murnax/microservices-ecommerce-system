@@ -20,7 +20,11 @@ const OrderModel = mongoose.model('Order', OrderSchema);
 export default class OrderRepository implements IOrderRepository {
     
     async getById(orderId: OrderId) : Promise<Order> {
-        return OrderFactory.reconstitute(await OrderModel.findOne({ orderId }));
+        const order = await OrderModel.findOne({ orderId })
+        if (!order) {
+            return null;
+        }
+        return OrderFactory.reconstitute(order);
     }
 
     create(order: Order) : void {
@@ -28,6 +32,6 @@ export default class OrderRepository implements IOrderRepository {
     }
 
     save(order: Order) : void {
-        OrderModel.findOneAndUpdate({ orderId: order.orderId.toString() }, { $set: order.toJSON() });
+        OrderModel.findOneAndUpdate({ orderId: order.orderId.toString() }, { $set: order.toJSON() }).exec();
     }
 }
