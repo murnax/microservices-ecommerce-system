@@ -114,7 +114,6 @@ app.post('/orders/:orderId/confirm', async (req, res) => {
 
         res.json('ok');
     } catch(error) {
-        console.log(error);
         res.json(error.message);
     }
     
