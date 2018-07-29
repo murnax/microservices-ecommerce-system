@@ -74,7 +74,7 @@ app.post('/orders/:orderId/paid', async (req, res) => {
         name: 'payOrder',
         payload: {
             userId: 1,
-            orderId: "5e46f8ba-cf9b-452b-9f58-5fcd96249ba5"
+            orderId
         }
     };
 
@@ -96,6 +96,28 @@ app.post('/orders/:orderId/paid', async (req, res) => {
     // });
 
     res.json('ok');
+});
+
+app.post('/orders/:orderId/confirm', async (req, res) => {
+    try {
+        const { orderId } = req.params;
+
+        const command = {
+            name: 'confirmOrder',
+            payload: {
+                userId: 1,
+                orderId
+            }
+        };
+
+        await orderCommandHandler.confirmOrder(command);
+
+        res.json('ok');
+    } catch(error) {
+        console.log(error);
+        res.json(error.message);
+    }
+    
 });
 
 app.get('/orders', (req, res) => {

@@ -25,7 +25,7 @@ export default class OrderCommandHandlers {
 
         const customer = await this.customerRepository.getById(userId);
         if (!customer) {
-
+            
         }
 
         const products = await this.productRepository.getProductsByIDs(orderList.map((item: any) => item.productId));
@@ -50,6 +50,19 @@ export default class OrderCommandHandlers {
         const order = await this.orderRepository.getById(orderId);
 
         order.pay();
+
+        this.orderRepository.save(order);
+    }
+
+    async confirmOrder(command: any) {
+        const { userId, payload: { orderId } } = command;
+        const order = await this.orderRepository.getById(orderId);
+
+        if (!order) {
+            throw new Error('order can not be found');
+        }
+        
+        order.confirm();
 
         this.orderRepository.save(order);
     }
