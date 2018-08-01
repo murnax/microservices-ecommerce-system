@@ -16,6 +16,7 @@ Concepts & Patterns:
 
 Tools:
 - Docker & Docker Compose
+- Kong API Gateway
 - Kafka
 
 Languages:
