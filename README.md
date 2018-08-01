@@ -19,9 +19,8 @@ Tools:
 - Kong API Gateway
 - Kafka
 
-Languages:
+Language:
 - Node.js (Typescript)
-- Golang
 
 ### Project Structure
 
