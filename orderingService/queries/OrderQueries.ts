@@ -1,5 +1,4 @@
-import mongoose = require('mongoose');
-const OrderModel = mongoose.model('Order');
+const OrderModel = require('mongoose').model('Order');
 
 class Order {
     public orderId: string;
@@ -32,7 +31,7 @@ class OrderSummary {
 class OrderList {
     public total: number;
     public data: Array<OrderSummary>;
-    public type: strig;
+    public type: string;
     
     constructor(total: number, data: Array<OrderSummary>) {
         this.total = total;
@@ -43,13 +42,13 @@ class OrderList {
 
 export default class OrderQueries {
 
-    async getOrder(orderId: any): Promise<Order> {
+    async getOrder(orderId: any): Promise<any> {
         const order = await OrderModel.findOne({ orderId });
         return order;
     }
 
     async getOrders() : Promise<Array<OrderSummary>> {
-        const total = await OrderModel.count();
+        const total = await OrderModel.countDocuments({});
         const data = (await OrderModel.find()).map(order => {
             return new OrderSummary(order.orderId, order.status, order.subTotal, order.totalQuantity);
         });
