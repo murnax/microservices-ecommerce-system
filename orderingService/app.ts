@@ -15,6 +15,10 @@ const customerRepository = new CustomerRepository();
 const productRepository = new ProductRepository();
 const orderCommandHandler = new OrderCommandHandler(orderRepository, customerRepository, productRepository);
 
+import OrderQueries from "@root/queries/OrderQueries";
+
+const orderQueries = new OrderQueries();
+
 const client = new kafka.KafkaClient({ kafkaHost: 'kafka:9092' });
 const producer = new kafka.Producer(client);
 const consumer = new kafka.Consumer(
@@ -55,14 +59,14 @@ app.post('/orders', async (req, res) => {
         ...order
     };
 
-    const payload = [{
-        topic: event.event,
-        key: order.orderId,
-        messages: JSON.stringify(event)
-    }];
-    producer.send(payload, (err, data) => {
-        console.log('sent ordering.order_created event');
-    });
+    // const payload = [{
+    //     topic: event.event,
+    //     key: order.orderId,
+    //     messages: JSON.stringify(event)
+    // }];
+    // producer.send(payload, (err, data) => {
+    //     console.log('sent ordering.order_created event');
+    // });
 
     res.json(order);
 });
@@ -120,25 +124,13 @@ app.post('/orders/:orderId/confirm', async (req, res) => {
     
 });
 
-app.get('/orders', (req, res) => {
-    const event = {
-        type: 'OrderListed',
-        userId: 3,
-    };
+app.get('/orders', async (req, res) => {
+    res.json(await orderQueries.getOrders());
+});
 
-    const payload = [{
-        topic: event.type,
-        messages: JSON.stringify(event)
-    }];
-    producer.send(payload, (err, data) => {
-        console.log('err', err);
-        console.log('data', data);
-    });
-
-    res.json({
-        total: 0,
-        data: []
-    });
+app.get('/orders/:orderId', async (req, res) => {
+    const { orderId } = req.params;
+    res.json(await orderQueries.getOrder(orderId));
 });
 
 app.listen(process.env.API_PORT, () => {

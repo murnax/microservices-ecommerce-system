@@ -29,17 +29,30 @@ class OrderSummary {
     }
 }
 
+class OrderList {
+    public total: number;
+    public data: Array<OrderSummary>;
+    public type: strig;
+    
+    constructor(total: number, data: Array<OrderSummary>) {
+        this.total = total;
+        this.data = data;
+        this.type = "order";
+    }
+}
+
 export default class OrderQueries {
 
     async getOrder(orderId: any): Promise<Order> {
         const order = await OrderModel.findOne({ orderId });
         return order;
-        // return new Order(order);
     }
 
     async getOrders() : Promise<Array<OrderSummary>> {
-        return (await OrderModel.find()).map(order => {
+        const total = await OrderModel.count();
+        const data = (await OrderModel.find()).map(order => {
             return new OrderSummary(order.orderId, order.status, order.subTotal, order.totalQuantity);
         });
+        return new OrderList(total, data);
     }
 }
