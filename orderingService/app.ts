@@ -1,5 +1,7 @@
 require('module-alias/register');
 
+const bodyParser = require('body-parser');
+
 import * as kafka from 'kafka-node';
 import * as express from 'express';
 import * as mongoose from 'mongoose';
@@ -33,21 +35,21 @@ const consumer = new kafka.Consumer(
 );
 
 const app = express();
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 app.get('/products', (req, res) => {
     res.json('ok');
 });
 
 app.post('/orders', async (req, res) => {
-
+    const orderDetail = req.body;
+    const userId = 1;
     const command = {
         name: 'createOrder',
         payload: {
-            userId: 1,
-            orderList: [
-                { productId: 3, quantity: 5 },
-                { productId: 7, quantity: 3 }
-            ],
-            deliveryAddress: "5/51 Sailom Condo, Phaholyothin Soi 8, Samsen N'ai, Phaya Thai, Bangkok, 10400, Thailand"
+            userId,
+            ...orderDetail
         }
     };
 
