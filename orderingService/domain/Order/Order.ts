@@ -34,7 +34,7 @@ export default class Order {
             throw new Error('there is no line items in this order');
         }
 
-        this.subTotal = this.lineItems.reduce((a, b) => { return a + b.total; }, 0);
+        this.subTotal = this.lineItems.reduce((a, b) => { return a + (b.quantity * b.unitPrice); }, 0);
         this.totalQuantity = this.lineItems.reduce((a, b) => { return a + b.quantity; }, 0);
     }
 
