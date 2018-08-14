@@ -80,20 +80,20 @@ app.post('/orders/:orderId/paid', async (req, res) => {
 
     await orderCommandHandler.payOrder(command);
 
-    // const event = {
-    //     event: 'ordering',
-    //     type: 'order_paid',
-    //     orderId
-    // };
+    const event = {
+        event: 'ordering',
+        type: 'order_paid',
+        orderId
+    };
 
-    // const payload = [{
-    //     topic: event.event,
-    //     key: orderId,
-    //     messages: JSON.stringify(event)
-    // }];
-    // producer.send(payload, (err, data) => {
-    //     console.log('sent ordering.order_paid event');
-    // });
+    const payload = [{
+        topic: event.event,
+        key: orderId,
+        messages: JSON.stringify(event)
+    }];
+    producer.send(payload, (err, data) => {
+        console.log('sent ordering.order_paid event');
+    });
 
     res.json('ok');
 });
@@ -111,6 +111,21 @@ app.post('/orders/:orderId/confirm', async (req, res) => {
         };
 
         await orderCommandHandler.confirmOrder(command);
+
+        const event = {
+            event: 'ordering',
+            type: 'order_confirmed',
+            orderId
+        };
+    
+        const payload = [{
+            topic: event.event,
+            key: orderId,
+            messages: JSON.stringify(event)
+        }];
+        producer.send(payload, (err, data) => {
+            console.log('sent ordering.order_paid event');
+        });
 
         res.json('ok');
     } catch(error) {
