@@ -12,6 +12,8 @@ export default class Order {
     subTotal: Number;
     totalQuantity: Number;
     deliveryAddress: any;
+    createdDate: Date;
+    updatedDate: Date;
     
     constructor(orderId: OrderId, customerContactInfo: CustomerContactInfo, lineItems: Array<LineItem>, 
         status: Number, deliveryAddress: any, subTotal?: Number, totalQuantity?: Number) {
