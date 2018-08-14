@@ -30,7 +30,7 @@ export default class OrderCommandHandlers {
 
         const products = await this.productRepository.getProductsByIDs(orderList.map((item: any) => item.productId));
         const lineItems: Array<LineItem> = products.map((product: any, index: number) => {
-            return new LineItem(product.productId, orderList[index].quantity, product.unitPrice);
+            return new LineItem(product.productId, product.productName, orderList[index].quantity, product.unitPrice);
         });
 
         const fullname = `${customer.firstname} ${customer.lastname}`;

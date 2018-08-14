@@ -16,11 +16,11 @@ Concepts & Patterns:
 
 Tools:
 - Docker & Docker Compose
+- Kong API Gateway
 - Kafka
 
-Languages:
+Language:
 - Node.js (Typescript)
-- Golang
 
 ### Project Structure
 

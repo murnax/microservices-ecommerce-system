@@ -1,5 +1,7 @@
 require('module-alias/register');
 
+const bodyParser = require('body-parser');
+
 import * as kafka from 'kafka-node';
 import * as express from 'express';
 import * as mongoose from 'mongoose';
@@ -15,6 +17,10 @@ const customerRepository = new CustomerRepository();
 const productRepository = new ProductRepository();
 const orderCommandHandler = new OrderCommandHandler(orderRepository, customerRepository, productRepository);
 
+import OrderQueries from "@root/queries/OrderQueries";
+
+const orderQueries = new OrderQueries();
+
 const client = new kafka.KafkaClient({ kafkaHost: 'kafka:9092' });
 const producer = new kafka.Producer(client);
 const consumer = new kafka.Consumer(
@@ -29,21 +35,21 @@ const consumer = new kafka.Consumer(
 );
 
 const app = express();
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 app.get('/products', (req, res) => {
     res.json('ok');
 });
 
 app.post('/orders', async (req, res) => {
-
+    const orderDetail = req.body;
+    const userId = 1;
     const command = {
         name: 'createOrder',
         payload: {
-            userId: 1,
-            orderList: [
-                { productId: 3, quantity: 5 },
-                { productId: 7, quantity: 3 }
-            ],
-            deliveryAddress: "5/51 Sailom Condo, Phaholyothin Soi 8, Samsen N'ai, Phaya Thai, Bangkok, 10400, Thailand"
+            userId,
+            ...orderDetail
         }
     };
 
@@ -55,14 +61,14 @@ app.post('/orders', async (req, res) => {
         ...order
     };
 
-    const payload = [{
-        topic: event.event,
-        key: order.orderId,
-        messages: JSON.stringify(event)
-    }];
-    producer.send(payload, (err, data) => {
-        console.log('sent ordering.order_created event');
-    });
+    // const payload = [{
+    //     topic: event.event,
+    //     key: order.orderId,
+    //     messages: JSON.stringify(event)
+    // }];
+    // producer.send(payload, (err, data) => {
+    //     console.log('sent ordering.order_created event');
+    // });
 
     res.json(order);
 });
@@ -134,25 +140,13 @@ app.post('/orders/:orderId/confirm', async (req, res) => {
     
 });
 
-app.get('/orders', (req, res) => {
-    const event = {
-        type: 'OrderListed',
-        userId: 3,
-    };
+app.get('/orders', async (req, res) => {
+    res.json(await orderQueries.getOrders());
+});
 
-    const payload = [{
-        topic: event.type,
-        messages: JSON.stringify(event)
-    }];
-    producer.send(payload, (err, data) => {
-        console.log('err', err);
-        console.log('data', data);
-    });
-
-    res.json({
-        total: 0,
-        data: []
-    });
+app.get('/orders/:orderId', async (req, res) => {
+    const { orderId } = req.params;
+    res.json(await orderQueries.getOrder(orderId));
 });
 
 app.listen(process.env.API_PORT, () => {

@@ -1,8 +1,8 @@
-import Order from "@root/domain/Order/Order";
-import LineItem from "@root/domain/Order/LineItem";
-import OrderId from '@root/domain/Order/OrderId';
-import OrderStatus from '@root/domain/Order/OrderStatus';
-import CustomerContactInfo from '@root/domain/Order/CustomerContactInfo';
+import Order from "./Order";
+import LineItem from "./LineItem";
+import OrderId from './OrderId';
+import OrderStatus from './OrderStatus';
+import CustomerContactInfo from './CustomerContactInfo';
 
 export default class OrderFactory {
 
