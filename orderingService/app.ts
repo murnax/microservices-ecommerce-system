@@ -17,9 +17,9 @@ const customerRepository = new CustomerRepository();
 const productRepository = new ProductRepository();
 const orderCommandHandler = new OrderCommandHandler(orderRepository, customerRepository, productRepository);
 
-import OrderQueries from "@root/queries/OrderQueries";
+import OrderQueryHandler from "@root/queryHandler/OrderQueryHandler";
 
-const orderQueries = new OrderQueries();
+const orderQueryHandler = new OrderQueryHandler();
 
 const client = new kafka.KafkaClient({ kafkaHost: 'kafka:9092' });
 const producer = new kafka.Producer(client);
@@ -141,12 +141,12 @@ app.post('/orders/:orderId/confirm', async (req, res) => {
 });
 
 app.get('/orders', async (req, res) => {
-    res.json(await orderQueries.getOrders());
+    res.json(await orderQueryHandler.getOrders());
 });
 
 app.get('/orders/:orderId', async (req, res) => {
     const { orderId } = req.params;
-    res.json(await orderQueries.getOrder(orderId));
+    res.json(await orderQueryHandler.getOrder(orderId));
 });
 
 app.listen(process.env.API_PORT, () => {

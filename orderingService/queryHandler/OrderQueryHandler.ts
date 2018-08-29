@@ -4,7 +4,6 @@ class Order {
     public orderId: string;
     public lineItems: Array<LineItem>;
     public status: number;
-
 }
 
 class LineItem {
@@ -40,7 +39,7 @@ class OrderList {
     }
 }
 
-export default class OrderQueries {
+export default class OrderQueryHandler {
 
     async getOrder(orderId: any): Promise<any> {
         const order = await OrderModel.findOne({ orderId });

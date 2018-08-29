@@ -7,8 +7,8 @@ const customerRepository = new CustomerRepository();
 const productRepository = new ProductRepository();
 const orderCommandHandler = new OrderCommandHandler(orderRepository, customerRepository, productRepository);
 
-import OrderQueries from "queries/OrderQueries";
-const orderQueries = new OrderQueries();
+import OrderQueryHandler from "queryHandler/OrderQueryHandler";
+const orderQueryHandler = new OrderQueryHandler();
 
 export default class OrderController {
 

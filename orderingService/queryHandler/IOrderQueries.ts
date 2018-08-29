@@ -1,6 +1,6 @@
 namespace Services.Ordering.Queries {
     
-    export interface IOrderQueries {
+    export interface IOrderQueryHandler {
 
         getOrder(orderId: any) : Promise<Order>;
         
