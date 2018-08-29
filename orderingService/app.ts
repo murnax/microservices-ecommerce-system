@@ -18,7 +18,6 @@ const productRepository = new ProductRepository();
 const orderCommandHandler = new OrderCommandHandler(orderRepository, customerRepository, productRepository);
 
 import OrderQueryHandler from "@root/queryHandler/OrderQueryHandler";
-
 const orderQueryHandler = new OrderQueryHandler();
 
 const client = new kafka.KafkaClient({ kafkaHost: 'kafka:9092' });
@@ -37,6 +36,8 @@ const consumer = new kafka.Consumer(
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+require('./route')(app);
 
 app.get('/products', (req, res) => {
     res.json('ok');
@@ -138,10 +139,6 @@ app.post('/orders/:orderId/confirm', async (req, res) => {
         res.json(error.message);
     }
     
-});
-
-app.get('/orders', async (req, res) => {
-    res.json(await orderQueryHandler.getOrders());
 });
 
 app.get('/orders/:orderId', async (req, res) => {

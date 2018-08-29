@@ -7,7 +7,7 @@ const customerRepository = new CustomerRepository();
 const productRepository = new ProductRepository();
 const orderCommandHandler = new OrderCommandHandler(orderRepository, customerRepository, productRepository);
 
-import OrderQueryHandler from "queryHandler/OrderQueryHandler";
+import OrderQueryHandler from "@root/queryHandler/OrderQueryHandler";
 const orderQueryHandler = new OrderQueryHandler();
 
 export default class OrderController {
@@ -43,16 +43,15 @@ export default class OrderController {
         res.json(order);
     }
 
-    paidOrder() {
-
+    paidOrder(req, res) {
     }
 
     confirmOrder() {
 
     }
 
-    getOrders() {
-
+    async getOrders(req, res) {
+        res.json(await orderQueryHandler.getOrders());
     }
 
     getOrder() {
