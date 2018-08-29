@@ -54,7 +54,8 @@ export default class OrderController {
         res.json(await orderQueryHandler.getOrders());
     }
 
-    getOrder() {
-        
+    async getOrder(req, res) {
+        const { orderId } = req.params;
+        res.json(await orderQueryHandler.getOrder(orderId));
     }
 }

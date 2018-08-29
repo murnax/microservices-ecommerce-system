@@ -141,11 +141,6 @@ app.post('/orders/:orderId/confirm', async (req, res) => {
     
 });
 
-app.get('/orders/:orderId', async (req, res) => {
-    const { orderId } = req.params;
-    res.json(await orderQueryHandler.getOrder(orderId));
-});
-
 app.listen(process.env.API_PORT, () => {
     console.log(`Rest service is now running on port ${process.env.API_PORT}`);
 });
