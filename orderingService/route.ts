@@ -1,4 +1,4 @@
-import OrderController from 'controller/order/OrderController';
+import OrderController from '@root/controller/order/OrderController';
 const orderController = new OrderController();
 
 module.exports = function(app) {
