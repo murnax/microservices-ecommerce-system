@@ -33,6 +33,6 @@
   },
   "_moduleAliases": {
     "@root": "./dist",
-    "@repository": "./dist/repository"
+    "@repository": "./dist/infrastructure/repository"
   }
 }

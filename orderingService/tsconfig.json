@@ -4,7 +4,7 @@
     "baseUrl": "./",
     "paths": {
       "@root/*": ["*"],
-      "@repository/*" : ["repository/*"]
+      "@repository/*" : ["infrastructure/repository/*"],
     },
     "target": "es6",
     "module": "commonjs",
