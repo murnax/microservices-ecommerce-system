@@ -7,19 +7,6 @@ import * as express from 'express';
 import * as mongoose from 'mongoose';
 mongoose.connect('mongodb://mongo/ordering');
 
-import OrderCommandHandler from '@root/commandHandler/OrderCommandHandler';
-import OrderRepository from '@root/repository/OrderRepository';
-import CustomerRepository from '@root/repository/CustomerRepository';
-import ProductRepository from '@root/repository/ProductRepository';
-
-const orderRepository = new OrderRepository();
-const customerRepository = new CustomerRepository();
-const productRepository = new ProductRepository();
-const orderCommandHandler = new OrderCommandHandler(orderRepository, customerRepository, productRepository);
-
-import OrderQueryHandler from "@root/queryHandler/OrderQueryHandler";
-const orderQueryHandler = new OrderQueryHandler();
-
 const client = new kafka.KafkaClient({ kafkaHost: 'kafka:9092' });
 const producer = new kafka.Producer(client);
 const consumer = new kafka.Consumer(
