@@ -3,7 +3,7 @@ import OrderId from './OrderId';
 
 export default interface IOrderRepository {
     
-    getById(orderId: OrderId) : Promise<Order>;
+    getById(orderId: OrderId) : Promise<Object>;
 
     create(order: Order) : void;
 
