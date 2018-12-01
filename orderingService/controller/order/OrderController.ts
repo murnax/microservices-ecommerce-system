@@ -42,7 +42,7 @@ export default class OrderController {
         res.json(order);
     }
 
-    async paidOrder(req, res) {
+    async payOrder(req, res) {
         const { orderId } = req.params;
 
         const command = {
