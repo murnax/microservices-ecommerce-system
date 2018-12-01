@@ -6,6 +6,9 @@ services:
     build: ./orderingService
     ports:
       - "3001:3001"
+    depends_on:
+      mongo:
+        condition: service_healthy
     volumes:
       - ./orderingService:/app
       - ./orderingService/node_modules:/app/node_modules
@@ -17,6 +20,9 @@ services:
     build: ./shipmentService
     ports:
       - "3002:3002"
+    depends_on:
+      mongo:
+        condition: service_healthy
     volumes:
       - ./shipmentService:/app
       - ./shipmentService/node_modules:/app/node_modules
@@ -37,7 +43,11 @@ services:
       ADV_HOST: 'kafka'
 
   mongo:
-    image: mvertes/alpine-mongo:3.2.1
+    image: mongo:latest
     ports:
       - "27017"
-    command: ["mongod"]
+    command: mongod --smallfiles
+    healthcheck:
+      test: ["CMD-SHELL", "echo 'db.stats().ok' | mongo 192.168.5.51:30000/test --quiet"]
+      interval: 5s
+      retries: 10
