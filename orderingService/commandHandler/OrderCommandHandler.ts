@@ -8,6 +8,7 @@ import LineItem from "@root/domain/Order/LineItem";
 import OrderId from '@root/domain/Order/OrderId';
 import OrderStatus from '@root/domain/Order/OrderStatus';
 import CustomerContactInfo from '@root/domain/Order/CustomerContactInfo';
+import OrderFactory from '@root/domain/Order/OrderFactory';
 
 export default class OrderCommandHandlers {
     private readonly orderRepository: IOrderRepository;
@@ -20,8 +21,7 @@ export default class OrderCommandHandlers {
         this.productRepository = productRepository;
     }
 
-    async createOrder({ payload }: any) {
-        const { userId, orderList, deliveryAddress } = payload;
+    async createOrder({ payload: { userId, orderList, deliveryAddress } }: any) {
 
         const customer = await this.customerRepository.getById(userId);
         if (!customer) {
@@ -33,24 +33,15 @@ export default class OrderCommandHandlers {
             return new LineItem(product.productId, product.productName, orderList[index].quantity, product.unitPrice);
         });
 
-        const fullname = `${customer.firstname} ${customer.lastname}`;
-        const customerContactInfo = new CustomerContactInfo(fullname, customer.email, customer.phoneNumber);
-
-        const orderId = new OrderId(uuid());
-        const order = new Order(orderId, customerContactInfo, lineItems, OrderStatus.PENDING, deliveryAddress);
-
-        order.calculate();
-
+        const order = OrderFactory.create(customer, lineItems, deliveryAddress);
         this.orderRepository.create(order);
         return order;
     }
 
-    async payOrder(command: any) {
+    async payOrder(command: any): void {
         const { userId, payload: { orderId } } = command;
-        const order = await this.orderRepository.getById(orderId);
-
+        const order = OrderFactory.reconstitute(await this.orderRepository.getById(orderId));
         order.pay();
-
         this.orderRepository.save(order);
     }
 
